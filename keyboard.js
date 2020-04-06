@@ -37,7 +37,15 @@ function getWord()
 function resetCurrent()
 {
 	current = getWord();
-	document.getElementById("currentWord").innerText = current;
+	if(current == null)
+	{
+		alert("No such word! Try again.");
+		resetSearch();
+	}
+	else
+	{
+		document.getElementById("currentWord").innerText = current;
+	}
 }
 
 // Moves the search window before current
@@ -63,6 +71,14 @@ function selectCurrent()
 	resetCurrent();
 }
 
+// Reset the current search
+function resetSearch()
+{
+	first = null;
+	last = null;
+	resetCurrent();
+}
+
 // Reads the keypresses and allows arrow key control
 function readKeyPress(e)
 {
@@ -78,9 +94,7 @@ function readKeyPress(e)
 			selectCurrent();
 			break;
 		case "ArrowDown":
-			first = null;
-			last = null;
-			resetCurrent();
+			resetSearch();
 			break;
 	}
 
