@@ -15,3 +15,6 @@ The search can be navigated using the arrow keys
 
 This project is just for fun, and rather slow overall, but I had some fun
 writing it.
+
+Credit to https://raw.githubusercontent.com/derekchuank/high-frequency-vocabulary/master/30k.txt
+for providing a good default wordlist
