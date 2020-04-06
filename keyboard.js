@@ -63,6 +63,30 @@ function selectCurrent()
 	resetCurrent();
 }
 
+// Reads the keypresses and allows arrow key control
+function readKeyPress(e)
+{
+	console.log(e.key);
+	switch(e.key)
+	{
+		case "ArrowLeft":
+			selectBefore();
+			break;
+		case "ArrowRight":
+			selectAfter();
+			break;
+		case "ArrowUp":
+			selectCurrent();
+			break;
+		case "ArrowDown":
+			first = null;
+			last = null;
+			resetCurrent();
+			break;
+	}
+
+}
+
 // Get our newline separated wordlist
 var wordlistRequest = new XMLHttpRequest();
 wordlistRequest.open("GET", wordlistURL, false);
@@ -73,6 +97,9 @@ var words = wordlistRequest.responseText.split(wordlistDelimeter);
 // The lower and upper words for our binary search window
 var first = null;
 var last = null;
+
+// Set everything up when it's ready
 document.addEventListener("DOMContentLoaded", function(event){
+	window.addEventListener("keydown", readKeyPress);
 	resetCurrent();
 });
