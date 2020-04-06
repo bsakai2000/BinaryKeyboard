@@ -66,7 +66,6 @@ function selectCurrent()
 // Reads the keypresses and allows arrow key control
 function readKeyPress(e)
 {
-	console.log(e.key);
 	switch(e.key)
 	{
 		case "ArrowLeft":
