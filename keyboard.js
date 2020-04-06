@@ -3,7 +3,8 @@ var wordlistURL = "https://raw.githubusercontent.com/derekchuank/high-frequency-
 // The delemeeter between words on the wordlist
 var wordlistDelimeter = "\t\n";
 
-// Returns positive if string1 > string2, negative if string2 > string1, and zero if equal
+// Returns positive if string1 is after string2, negative if string1 is before
+// string2, and zero if equal
 // Ignores case
 function strcmp(string1, string2)
 {
@@ -11,16 +12,16 @@ function strcmp(string1, string2)
 }
 
 // Gets the first word in words that is lexically between lower and upper
-function getWord(lower, upper, words)
+function getWord()
 {
 	// Look through the list of words
 	for(var i = 0; i < words.length; ++i)
 	{
 		if(
-			// If we have a lower, make sure this word is above lower
-			(lower == null || strcmp(words[i], lower) > 0) && 
-			// If we have an upper, make sure this word is below upper
-			(upper == null || strcmp(words[i], upper) < 0)
+			// If we have a first, make sure this word is after first
+			(first == null || strcmp(words[i], first) > 0) && 
+			// If we have a last, make sure this word is before last
+			(last == null || strcmp(words[i], last) < 0)
 		)
 		{
 			// If we found a matching word, return it
@@ -31,6 +32,37 @@ function getWord(lower, upper, words)
 	return null;
 }
 
+// Sets current to the most frequent word between first and last, and updates
+// the current word display
+function resetCurrent()
+{
+	current = getWord();
+	document.getElementById("currentWord").innerText = current;
+}
+
+// Moves the search window before current
+function selectBefore()
+{
+	last = current;
+	resetCurrent();
+}
+
+// Moves the search window after current
+function selectAfter()
+{
+	first = current;
+	resetCurrent();
+}
+
+// Selects the current word and resets the search window
+function selectCurrent()
+{
+	document.getElementById("selectedWords").innerText += " " + current;
+	first = null;
+	last = null;
+	resetCurrent();
+}
+
 // Get our newline separated wordlist
 var wordlistRequest = new XMLHttpRequest();
 wordlistRequest.open("GET", wordlistURL, false);
@@ -39,5 +71,8 @@ wordlistRequest.send();
 var words = wordlistRequest.responseText.split(wordlistDelimeter);
 
 // The lower and upper words for our binary search window
-var lower = null;
-var upper = null;
+var first = null;
+var last = null;
+document.addEventListener("DOMContentLoaded", function(event){
+	resetCurrent();
+});

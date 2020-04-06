@@ -3,7 +3,28 @@
 	<head>
 		<meta charset="utf-8"/>
 		<script src="keyboard.js"></script>
+		<style>
+			div.display {
+				text-align: center;
+				font-size: large;
+			}
+
+			div.centered {
+				text-align: center;
+				text-color: red;
+			}
+
+		</style>
 	</head>
 	<body>
+		<div id="selectedWords" class="display"> </div>
+		<br> <br>
+		<div id="currentWord" class="display"> </div>
+
+		<div class="centered">
+			<button onclick="selectBefore()">Before</button>
+			<button onclick="selectCurrent()">Select</button>
+			<button onclick="selectAfter()">After</button>
+		</div>
 	</body>
 </html>
